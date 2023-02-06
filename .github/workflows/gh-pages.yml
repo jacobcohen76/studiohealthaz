@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build and Deploy
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -39,12 +39,12 @@ jobs:
       - name: Build Project
         run: yarn run build
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
- 
+          name: production-files
+          path: ./dist
+
   deploy:
     name: Deploy
     needs: build
